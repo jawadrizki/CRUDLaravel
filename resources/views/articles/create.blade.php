@@ -17,11 +17,15 @@
                             {!! Form::label('title','Enter Title') !!}
                             {!! Form::text('title',null,['class'=>'form-control']) !!}
                         </div>
-
+                        <div class="form-group">
+                            {!! Form::label('category_id','Select Category') !!}
+                            {!! Form::select('category_id',$categories,null,['class'=>'form-control']) !!}
+                        </div>
                         <div class="form-group">
                             {!! Form::label('content','Enter the content') !!}
                             {!! Form::textarea('content',null,['class'=>'form-control']) !!}
                         </div>
+
 
                         <div class="form-group">
                             {!! Form::button('Create',['type'=>'submit','class'=>'btn btn-primary']) !!}

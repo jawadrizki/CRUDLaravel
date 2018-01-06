@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class Articlecontroller extends Controller
 {
@@ -15,7 +17,7 @@ class Articlecontroller extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::with('category')->get();
         return view('articles.index', compact('articles'));
     }
 
@@ -26,7 +28,9 @@ class Articlecontroller extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+
+        $categories = Category::pluck('name','id');
+        return view('articles.create',compact('categories'));
     }
 
     /**
@@ -37,6 +41,7 @@ class Articlecontroller extends Controller
      */
     public function store(ArticleRequest $request)
     {
+        //dd($request);
         Article::create($request->all());
         return redirect()->route('articles.index')->with('message','Article has been created');
     }
@@ -60,7 +65,9 @@ class Articlecontroller extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles.edit',compact('article'));
+        $categories = Category::pluck('name','id');
+        //dd($categories);
+        return view('articles.edit',compact('article', 'categories'));
     }
 
     /**
@@ -72,6 +79,7 @@ class Articlecontroller extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
+        //dd($article);
         $article->update($request->all());
         return redirect()->route('articles.index')->with('message','Article has been updated');
     }

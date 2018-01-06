@@ -14,12 +14,14 @@
                             <tr>
                                 <th>Title</th>
                                 <th>Content</th>
+                                <th>Category</th>
                                 <th>Action</th>
                             </tr>
                             @foreach($articles as $article)
                                 <tr>
                                     <td>{{$article->title}}</td>
                                     <td>{{substr($article->content,0,150)}} ... <br> {{ link_to_route('articles.show',"Show more",[$article->id]) }}</td>
+                                    <td>{{$article->category->name}}</td>
                                     <td width="30%">
                                         {!! Form::open(array('route'=>['articles.destroy',$article->id],'method'=>'DELETE')) !!}
                                         <a href="{{ route('articles.edit',[$article->id]) }}" class="btn btn-primary">Edit</a>
